@@ -1,0 +1,26 @@
+{
+  "name": "book-solo-back",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "devDependencies": {
+    "@types/node": "^8.10.66",
+    "ts-node": "3.3.0",
+    "typescript": "3.3.3333"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "ts-node-dev": "^1.1.6",
+    "typeorm": "^0.2.31"
+  },
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
