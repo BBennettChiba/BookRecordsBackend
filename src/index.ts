@@ -32,8 +32,8 @@ createConnection()
     });
 
     app.post("/login", async (req, res) => {
-        const user = await userRepo.findOne({where:{userName:req.body.username}, relations: ['password']})
-        if (user === undefined) return res.status(401).send({message:"username or password is incorrect"})
+      const user = await userRepo.findOne({where:{userName:req.body.username}, relations: ['password']})
+      if (user === undefined) return res.status(401).send({message:"username or password is incorrect"})
       if (user.password.password === req.body.password) res.send('login successful');
       else res.status(401).send({message: "username or password is incorrect"});
     });
@@ -42,7 +42,6 @@ createConnection()
       const user = await userRepo.findOne({
         where: { userName: req.body.user }, relations:['books'],
       });
-      console.log(user);
       const book = new Book();
       book.isbn = req.body.book;
       book.user = user;
@@ -51,9 +50,7 @@ createConnection()
     });
 
     app.get('/:user/books', async (req,res) =>{
-        console.log(req.params);
         const books = await userRepo.findOne({where: {userName: req.params.user}, relations: ['books']})
-        console.log(books.books);
         res.send(books.books);
     })
 
