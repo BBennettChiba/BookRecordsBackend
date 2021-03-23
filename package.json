@@ -8,15 +8,14 @@
     "typescript": "3.3.3333"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "@types/node": "^8.10.66",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "3.3.0",
     "ts-node-dev": "^1.1.6",
     "typeorm": "^0.2.31",
-    "@types/node": "^8.10.66",
-    "ts-node": "3.3.0",
     "typescript": "3.3.3333"
   },
   "scripts": {
