@@ -61,8 +61,8 @@ createConnection()
         res.send(books.books);
     })
 
-    app.listen(4000, () => {
-      console.log("app listening on port 4000");
+    app.listen(process.env.PORT, () => {
+      console.log("app listening on port" + process.env.PORT);
     });
   })
   .catch((error) => console.log(error));
