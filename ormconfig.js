@@ -1,10 +1,6 @@
-{
+module.exports = {
    "type": "postgres",
-   "host": "localhost",
-   "port": 5432,
-   "username": "postgres",
-   "password": "Malazan",
-   "database": "bookslist",
+   "url": process.env.DATABASE_URL,
    "synchronize": true,
    "logging": false,
    "entities": [

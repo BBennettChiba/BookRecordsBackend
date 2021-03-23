@@ -6,6 +6,7 @@ import * as cors from "cors";
 import { Password } from "./entity/Password";
 import { Book } from "./entity/Book";
 import { resolve } from "url";
+import axios from 'axios';
 
 createConnection()
   .then(async (connection) => {
@@ -39,9 +40,15 @@ createConnection()
     });
 
     app.post("/book", async (req, res) => {
+      if (req.body.book.length < 13) return res.send({msg: "not a valid ISBN"})
       const user = await userRepo.findOne({
         where: { userName: req.body.user }, relations:['books'],
       });
+      for (let book of user.books){
+        if (book.isbn === req.body.book) return res.send({msg: "book is already registerd"})
+      }
+      let googleReq = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.book}`);
+      if (googleReq.data.totalItems === 0) return res.send({msg: "That book doesn't exist on google books"});
       const book = new Book();
       book.isbn = req.body.book;
       book.user = user;
