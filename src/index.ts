@@ -21,6 +21,9 @@ createConnection()
       const user = new User();
       const newPass = new Password();
       const { firstName, lastName, password, username } = req.body;
+      if (firstName === '' || lastName === '' || password === '' || username === '') {
+        return res.send({msg: "must fill in fields"})
+      }
       user.firstName = firstName;
       user.lastName = lastName;
       newPass.password = password;
@@ -44,7 +47,7 @@ createConnection()
         where: { userName: req.body.user }, relations:['books'],
       });
       for (let book of user.books){
-        if (book.isbn === req.body.book) return res.send({msg: "book is already registerd"})
+        if (book.isbn === req.body.book) return res.status(400).send({msg: "book is already registerd"})
       }
       const book = new Book();
       book.isbn = req.body.book;
