@@ -61,6 +61,16 @@ createConnection()
         res.send(books.books);
     })
 
+    app.delete('/:user/book', async (req,res)=>{
+      console.log('body', req.body)
+      const user = await userRepo.findOne({where: {userName: req.params.user}, relations: ['books']})
+      const book = await bookRepo.createQueryBuilder().delete().from(Book).where('userId = :id', {id: user.id})
+      .andWhere('isbn = :book', {book: req.body.book}).execute();
+      console.log(book)
+      console.log(user);
+      res.end()
+    })
+
     app.listen(process.env.PORT, () => {
       console.log("app listening on port" + process.env.PORT);
     });
