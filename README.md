@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# Backend Server to the books Records project here https://github.com/BBennettChiba/BookRecordsClient
 
 Steps to run this project:
 
