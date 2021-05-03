@@ -1,11 +1,10 @@
 import "reflect-metadata";
-import { ConnectionNotFoundError, createConnection, getRepository } from "typeorm";
+import { createConnection, getRepository } from "typeorm";
 import { User } from "./entity/User";
 import * as express from "express";
 import * as cors from "cors";
 import { Password } from "./entity/Password";
 import { Book } from "./entity/Book";
-import { resolve } from "url";
 
 createConnection()
   .then(async (connection) => {
@@ -35,14 +34,14 @@ createConnection()
     });
 
     app.post("/login", async (req, res) => {
-      const user = await userRepo.findOne({where:{userName:req.body.username}, relations: ['password']})
-      if (user === undefined) return res.status(401).send({message:"username or password is incorrect"})
+      const user = await userRepo.findOne({where:{userName:req.body.username}, relations: ['password']});
+      if (user === undefined) return res.status(401).send({message:"username or password is incorrect"});
       if (user.password.password === req.body.password) res.send('login successful');
       else res.status(401).send({message: "username or password is incorrect"});
     });
 
     app.post("/book", async (req, res) => {
-      if (req.body.book.length < 13) return res.send({msg: "not a valid ISBN"})
+      if (req.body.book.length < 13) return res.send({msg: "not a valid ISBN"});
       const user = await userRepo.findOne({
         where: { userName: req.body.user }, relations:['books'],
       });
@@ -63,11 +62,9 @@ createConnection()
 
     app.delete('/:user/book', async (req,res)=>{
       console.log('body', req.body)
-      const user = await userRepo.findOne({where: {userName: req.params.user}, relations: ['books']})
+      const user = await userRepo.findOne({where: {userName: req.params.user}, relations: ['books']});
       const book = await bookRepo.createQueryBuilder().delete().from(Book).where('userId = :id', {id: user.id})
       .andWhere('isbn = :book', {book: req.body.book}).execute();
-      console.log(book)
-      console.log(user);
       res.end()
     })
 
